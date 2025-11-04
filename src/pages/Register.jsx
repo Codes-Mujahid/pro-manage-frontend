@@ -13,28 +13,29 @@ const Register=()=> {
         ))
     }
 
-    const handleSubmit = async (e) => {
-        try {
-            e.preventDefault();
-            const res = await axios.post('/api/user/register', {
-                name: formData.name,
-                email: formData.email,
-                password: formData.password
-            })
+const handleSubmit = async (e) => {
+  try {
+    e.preventDefault();
+    const res = await axios.post('/api/user/register', {
+      name: formData.name,
+      email: formData.email,
+      password: formData.password
+    });
 
-            if (res.data.success) {
-            toast.success('Registration Successful!')
-            setFormData({ name: "", email: "", password: "" });
-            navigate("/")} else{
-                toast.error(res.data.message)
-            }
+    if (res.data.success) {
+      toast.success('Registration Successful!');
+      setFormData({ name: "", email: "", password: "" });
+      navigate("/");
+    } else {
+      toast.error(res.data.message || 'Registration failed');
+    }
 
-        } catch (error) {
-            console.log(error.message);
-            toast.error(error.response?.data?.message || 'Registration failed')
-        }
-
-    };
+  } catch (error) {
+    console.log('Registration Error:', error);
+    const msg = error.response?.data?.message || error.message || 'Registration failed';
+    toast.error(msg);
+  }
+};
 
     return (
         <div className="flex justify-center items-center min-h-screen bg-gray-100">
