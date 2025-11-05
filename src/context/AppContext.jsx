@@ -31,7 +31,6 @@ export const AppContextProvider = ({ children }) => {
           fetchProjects();
         }
       } catch (error) {
-        console.log(error);
         setUser(null);
         setIsAuthenticated(false);
       }
